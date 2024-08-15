@@ -2,4 +2,5 @@
 
 - basic setup
 - axios ongoing
-- api playground ongoing
+- api playground ongoing : axios handlers ready
+- hooks under dev
