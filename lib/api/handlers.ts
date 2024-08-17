@@ -25,8 +25,7 @@ const call = async <T>(
     return response.data as T;
   } catch (error) {
     const axiosError = error as AxiosError;
-
-    throw Error(axiosError.message);
+    throw axiosError;
   }
 };
 

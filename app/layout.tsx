@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import ReactQueryProvider from "./provider/QueryClientProvider";
+import ReactQueryProvider from "../provider/QueryClientProvider";
+import { CounterStoreProvider } from "../provider/counter-store-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <CounterStoreProvider>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </CounterStoreProvider>
         </ThemeProvider>
       </body>
     </html>
