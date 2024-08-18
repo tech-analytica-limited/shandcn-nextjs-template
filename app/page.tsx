@@ -1,3 +1,5 @@
+"use client";
+
 import { ModeToggle } from "@/components/theme-switcher";
 
 export default function Home() {

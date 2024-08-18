@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import ReactQueryProvider from "../provider/QueryClientProvider";
 import { CounterStoreProvider } from "../provider/counter-store-provider";
+import { useThemeStore } from "@/store/theme-store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,12 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           <CounterStoreProvider>
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </CounterStoreProvider>

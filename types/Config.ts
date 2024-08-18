@@ -9,8 +9,6 @@ const apiUrl = process.env.API_BASE_URL || "https://dummyjson.com";
 const config: Config = {
   apiUrl,
   makeApiUrl: (path: string, base: string = apiUrl) => {
-    // clean up
-    console.log("main: ", base + path);
     return base + path;
   },
 };

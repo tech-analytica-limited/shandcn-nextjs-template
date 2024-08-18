@@ -1,6 +1,38 @@
-import axios, { AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosResponse,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from "axios";
 import config from "@/types/Config";
 import { HttpHeaders, HttpMethod } from "@/types/Types";
+
+const instance = axios.create({
+  baseURL: config.apiUrl,
+});
+
+// Request interceptor
+instance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    console.log("request interceptor triggered");
+    return config;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    console.log("response interceptor triggered");
+
+    return response;
+  },
+  (error: AxiosError) => {
+    return Promise.reject(error);
+  }
+);
 
 const call = async <T>(
   method: HttpMethod,
@@ -20,7 +52,7 @@ const call = async <T>(
   };
 
   try {
-    const response: AxiosResponse<T> = await axios(options);
+    const response: AxiosResponse<T> = await instance(options);
 
     return response.data as T;
   } catch (error) {
