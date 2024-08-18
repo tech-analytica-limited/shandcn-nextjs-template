@@ -14,7 +14,6 @@ const instance = axios.create({
 // Request interceptor
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    console.log("request interceptor triggered");
     return config;
   },
   (error: AxiosError) => {
@@ -25,8 +24,6 @@ instance.interceptors.request.use(
 // Response interceptor
 instance.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log("response interceptor triggered");
-
     return response;
   },
   (error: AxiosError) => {

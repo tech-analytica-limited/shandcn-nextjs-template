@@ -1,12 +1,15 @@
-"use client";
-
-import { ModeToggle } from "@/components/theme-switcher";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      <p>Auth page</p>
-      <ModeToggle />
+      <p className="text-2xl">
+        Check{" "}
+        <Link href={"/example"} className="underline">
+          example
+        </Link>{" "}
+        page for some components
+      </p>
     </main>
   );
 }

@@ -1,17 +1,22 @@
-import React from "react";
-import { ReactNode } from "react";
+"use client";
 
-interface ThemeProviderProps {
-  children: ReactNode;
-}
+import * as React from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { type ThemeProviderProps } from "next-themes/dist/types";
+import { useThemeStore } from "@/store/theme-store";
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  const { theme } = useThemeStore((state) => state);
+
   return (
-    <QueryClientProvider client={queryClient}>
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme={theme}
+      enableSystem
+      disableTransitionOnChange
+      {...props}
+    >
       {children}
-      <ReactQueryDevtools initialIsOpen={true} />
-    </QueryClientProvider>
+    </NextThemesProvider>
   );
-};
-
-export default ThemeProvider;
+}

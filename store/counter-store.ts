@@ -1,30 +1,31 @@
-import { createStore } from 'zustand/vanilla'
+import { create, createStore } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
-export type CounterState = {
-  count: number
-}
+type CounterStore = {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+};
 
-export type CounterActions = {
-  decrementCount: () => void
-  incrementCount: () => void
-}
-
-export type CounterStore = CounterState & CounterActions
-
-export const initCounterStore = (): CounterState => {
-  return { count: new Date().getFullYear() }
-}
-
-export const defaultInitState: CounterState = {
+// Without persist
+export const useCounterStore = create<CounterStore>()((set) => ({
   count: 0,
-}
+  increment: () => set((state) => ({ count: state.count + 1 })),
+  decrement: () => set((state) => ({ count: Math.max(state.count - 1, 0) })),
+}));
 
-export const createCounterStore = (
-  initState: CounterState = defaultInitState,
-) => {
-  return createStore<CounterStore>()((set) => ({
-    ...initState,
-    decrementCount: () => set((state) => ({ count: state.count - 1 })),
-    incrementCount: () => set((state) => ({ count: state.count + 1 })),
-  }))
-}
+// With persist (Store in localstorage)
+export const useCounterStorePersist = create<CounterStore>()(
+  persist(
+    (set) => ({
+      count: 0,
+      increment: () => set((state) => ({ count: state.count + 1 })),
+      decrement: () =>
+        set((state) => ({ count: Math.max(state.count - 1, 0) })),
+    }),
+    {
+      name: "counter-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
