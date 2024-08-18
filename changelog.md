@@ -7,3 +7,4 @@
 - axios handler checked: get ✅ post ⏳
 - react form hook
 - zustand: basic. localstorage ⏳
+- added encryption: native crypto library 🔐

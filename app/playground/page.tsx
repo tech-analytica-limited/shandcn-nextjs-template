@@ -4,9 +4,17 @@ import AddingTest from "./components/AddingTest";
 import Counter from "./components/Counter";
 import Forms from "./components/Forms";
 import ToggleTheme from "./components/toogle-theme";
+import encryptData from "@/lib/api/encryption";
+import decryptData from "@/lib/api/decryption";
 
 const page = () => {
   // const response = await get<SingleUser>("/users/1");
+
+  const dummyData = { msg: "hello" };
+  const encryptedData: string = encryptData(dummyData);
+  console.log("encryptedData: ", encryptedData);
+  const decryptedData: object | null = decryptData(encryptedData);
+  console.log("decryptedData: ", decryptedData);
 
   return (
     <div>
